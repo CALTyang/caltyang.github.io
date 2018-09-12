@@ -5,15 +5,22 @@
   
 
   
-  <title>Archives | SL&#39;s Blog</title>
+  <title>SpringBoot中开启热部署 | SL&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SL&#39;s Blog">
-<meta property="og:url" content="http://caltyang.cn/archives/index.html">
+  <meta name="description" content="SpringBoot中开启热部署使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作。好像是在 SpringBoot 1.3+ 引入">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot中开启热部署">
+<meta property="og:url" content="http://caltyang.cn/2017/03/05/SpringBoot中开启热部署/index.html">
 <meta property="og:site_name" content="SL&#39;s Blog">
+<meta property="og:description" content="SpringBoot中开启热部署使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作。好像是在 SpringBoot 1.3+ 引入">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://caltyang.cn/images/20170305/banner.png">
+<meta property="og:updated_time" content="2017-12-23T12:00:36.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SL&#39;s Blog">
+<meta name="twitter:title" content="SpringBoot中开启热部署">
+<meta name="twitter:description" content="SpringBoot中开启热部署使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作。好像是在 SpringBoot 1.3+ 引入">
+<meta name="twitter:image" content="http://caltyang.cn/images/20170305/banner.png">
   
     <link rel="alternate" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -60,226 +67,68 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/23/记一次解决CLOSE-WAIT/" class="archive-article-date">
-  <time datetime="2017-12-23T11:45:42.000Z" itemprop="datePublished">Dec 23</time>
+        <section id="main"><article id="post-SpringBoot中开启热部署" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/05/SpringBoot中开启热部署/" class="article-date">
+  <time datetime="2017-03-05T05:57:36.000Z" itemprop="datePublished">2017-03-05</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/23/记一次解决CLOSE-WAIT/">记一次解决CLOSE_WAIT</a>
+    <h1 class="article-title" itemprop="name">
+      SpringBoot中开启热部署
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SpringBoot中开启热部署<br>使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作<br>。好像是在 SpringBoot 1.3+ 引入<br><img src="/images/20170305/banner.png" alt=""><br><a id="more"></a></p>
+<p>使用步骤<br>1）引入依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;</span><br><span class="line">    &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>。注意一定要配置 optional 为 true，否则不生效<br>。同时需要开启 maven 的插件配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;fork&gt;true&lt;/fork&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2）开启 IDEA 中自动编译的特性： 设置 → Build,Execution,Deployment → Compiler</p>
+<p>3）运行项目<br>。自己测的时候，直接用 IDEA 的运行并没有成功，即修改代码之后没有触发重新部署<br>。使用 Maven 的 target 成功，即命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://caltyang.cn/2017/03/05/SpringBoot中开启热部署/" data-id="cjlyqln890009djjbmg5i6ymq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/08/使用supervisor管理进程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用supervisor管理进程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/05/命令行中如何科学上网/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">命令行中如何科学上网</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/15/SpringBoot中Profile/" class="archive-article-date">
-  <time datetime="2017-12-15T05:39:55.000Z" itemprop="datePublished">Dec 15</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/SpringBoot中Profile/">SpringBoot中Profile</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/04/用Nginx进行反向代理/" class="archive-article-date">
-  <time datetime="2017-12-04T06:12:01.000Z" itemprop="datePublished">Dec 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/04/用Nginx进行反向代理/">用Nginx进行反向代理</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/08/使用supervisor管理进程/" class="archive-article-date">
-  <time datetime="2017-03-08T05:31:22.000Z" itemprop="datePublished">Mar 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/08/使用supervisor管理进程/">使用supervisor管理进程</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/05/SpringBoot中开启热部署/" class="archive-article-date">
-  <time datetime="2017-03-05T05:57:36.000Z" itemprop="datePublished">Mar 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/05/SpringBoot中开启热部署/">SpringBoot中开启热部署</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/05/命令行中如何科学上网/" class="archive-article-date">
-  <time datetime="2017-03-05T05:52:24.000Z" itemprop="datePublished">Mar 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/05/命令行中如何科学上网/">命令行中如何科学上网</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/02/16/开启ActiveMQ的JMX/" class="archive-article-date">
-  <time datetime="2017-02-16T11:36:42.000Z" itemprop="datePublished">Feb 16</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/16/开启ActiveMQ的JMX/">开启ActiveMQ的JMX</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/12/23/使用mapStruct进行BeanMap/" class="archive-article-date">
-  <time datetime="2016-12-23T06:58:39.000Z" itemprop="datePublished">Dec 23</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/23/使用mapStruct进行BeanMap/">使用mapStruct进行BeanMap</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/12/16/使用jEnv管理JDK版本/" class="archive-article-date">
-  <time datetime="2016-12-16T11:24:22.000Z" itemprop="datePublished">Dec 16</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/16/使用jEnv管理JDK版本/">使用jEnv管理JDK版本</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/10/08/存树形结构的几种表设计/" class="archive-article-date">
-  <time datetime="2016-10-08T06:52:25.000Z" itemprop="datePublished">Oct 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/08/存树形结构的几种表设计/">存树形结构的几种表设计</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-  </nav>
 
 </section>
         

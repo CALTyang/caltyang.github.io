@@ -5,15 +5,24 @@
   
 
   
-  <title>Archives | SL&#39;s Blog</title>
+  <title>记一次解决CLOSE_WAIT | SL&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SL&#39;s Blog">
-<meta property="og:url" content="http://caltyang.cn/archives/index.html">
+  <meta name="description" content="。今天在工作中遇到了Nginx请求大量CLOSE_WAIT的状态，如图:">
+<meta name="keywords" content="网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次解决CLOSE_WAIT">
+<meta property="og:url" content="http://caltyang.cn/2017/12/23/记一次解决CLOSE-WAIT/index.html">
 <meta property="og:site_name" content="SL&#39;s Blog">
+<meta property="og:description" content="。今天在工作中遇到了Nginx请求大量CLOSE_WAIT的状态，如图:">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://caltyang.cn/images/20171223/problem.jpg">
+<meta property="og:image" content="http://caltyang.cn/images/20171223/close_wait.jpg">
+<meta property="og:image" content="http://caltyang.cn/images/20171223/ms.jpg">
+<meta property="og:updated_time" content="2017-12-24T16:16:38.317Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SL&#39;s Blog">
+<meta name="twitter:title" content="记一次解决CLOSE_WAIT">
+<meta name="twitter:description" content="。今天在工作中遇到了Nginx请求大量CLOSE_WAIT的状态，如图:">
+<meta name="twitter:image" content="http://caltyang.cn/images/20171223/problem.jpg">
   
     <link rel="alternate" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -60,226 +69,67 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/23/记一次解决CLOSE-WAIT/" class="archive-article-date">
-  <time datetime="2017-12-23T11:45:42.000Z" itemprop="datePublished">Dec 23</time>
+        <section id="main"><article id="post-记一次解决CLOSE-WAIT" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/23/记一次解决CLOSE-WAIT/" class="article-date">
+  <time datetime="2017-12-23T11:45:42.000Z" itemprop="datePublished">2017-12-23</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/23/记一次解决CLOSE-WAIT/">记一次解决CLOSE_WAIT</a>
+    <h1 class="article-title" itemprop="name">
+      记一次解决CLOSE_WAIT
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>。今天在工作中遇到了Nginx请求大量CLOSE_WAIT的状态，如图:<br><img src="/images/20171223/problem.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="什么是CLOSE-WAIT"><a href="#什么是CLOSE-WAIT" class="headerlink" title="什么是CLOSE_WAIT"></a>什么是CLOSE_WAIT</h2><hr>
+<p>。状态流程：<br><img src="/images/20171223/close_wait.jpg" alt=""><br>。我们知道，TCP有3次握手，4次挥手，CLOS_WAIT就是挥手过程中的一个状态</p>
+<blockquote>
+<p>指的是客户端发送完挥手的 FIN 包之后，服务器端还没来得及返回 ACK 的状态</p>
+</blockquote>
+<p>。其中MSL是Maximum Segment Lifetime，一般是60s，Linux下可以使用下面2个命令查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_fin_timeout</span><br><span class="line">cat /proc/sys/net/ipv4/tcp_fin_timeout</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/20171223/ms.jpg" alt=""></p>
+<h2 id="具体原因"><a href="#具体原因" class="headerlink" title="具体原因"></a>具体原因</h2><hr>
+<p>。参考：<a href="http://cxytiandi.com/blog/detail/11147" target="_blank" rel="noopener">http://cxytiandi.com/blog/detail/11147</a></p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><hr>
+<p>。解决方式相对还是比较简单的，增加Nginx的配置即可（注意是在HTTP块中）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp_nodelay    on;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><hr>
+<p><a href="http://www.cnblogs.com/Bozh/p/3752476.html" target="_blank" rel="noopener">http://www.cnblogs.com/Bozh/p/3752476.html</a><br><a href="https://www.qcloud.com/community/article/164816001481011814" target="_blank" rel="noopener">https://www.qcloud.com/community/article/164816001481011814</a><br><a href="https://huoding.com/2016/01/19/488" target="_blank" rel="noopener">https://huoding.com/2016/01/19/488</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://caltyang.cn/2017/12/23/记一次解决CLOSE-WAIT/" data-id="cjlyqln8s0010djjb9gxt9th4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/15/SpringBoot中Profile/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SpringBoot中Profile</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/15/SpringBoot中Profile/" class="archive-article-date">
-  <time datetime="2017-12-15T05:39:55.000Z" itemprop="datePublished">Dec 15</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/SpringBoot中Profile/">SpringBoot中Profile</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/04/用Nginx进行反向代理/" class="archive-article-date">
-  <time datetime="2017-12-04T06:12:01.000Z" itemprop="datePublished">Dec 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/04/用Nginx进行反向代理/">用Nginx进行反向代理</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/08/使用supervisor管理进程/" class="archive-article-date">
-  <time datetime="2017-03-08T05:31:22.000Z" itemprop="datePublished">Mar 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/08/使用supervisor管理进程/">使用supervisor管理进程</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/05/SpringBoot中开启热部署/" class="archive-article-date">
-  <time datetime="2017-03-05T05:57:36.000Z" itemprop="datePublished">Mar 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/05/SpringBoot中开启热部署/">SpringBoot中开启热部署</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/05/命令行中如何科学上网/" class="archive-article-date">
-  <time datetime="2017-03-05T05:52:24.000Z" itemprop="datePublished">Mar 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/05/命令行中如何科学上网/">命令行中如何科学上网</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/02/16/开启ActiveMQ的JMX/" class="archive-article-date">
-  <time datetime="2017-02-16T11:36:42.000Z" itemprop="datePublished">Feb 16</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/16/开启ActiveMQ的JMX/">开启ActiveMQ的JMX</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/12/23/使用mapStruct进行BeanMap/" class="archive-article-date">
-  <time datetime="2016-12-23T06:58:39.000Z" itemprop="datePublished">Dec 23</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/23/使用mapStruct进行BeanMap/">使用mapStruct进行BeanMap</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/12/16/使用jEnv管理JDK版本/" class="archive-article-date">
-  <time datetime="2016-12-16T11:24:22.000Z" itemprop="datePublished">Dec 16</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/16/使用jEnv管理JDK版本/">使用jEnv管理JDK版本</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/10/08/存树形结构的几种表设计/" class="archive-article-date">
-  <time datetime="2016-10-08T06:52:25.000Z" itemprop="datePublished">Oct 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/08/存树形结构的几种表设计/">存树形结构的几种表设计</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-  </nav>
 
 </section>
         

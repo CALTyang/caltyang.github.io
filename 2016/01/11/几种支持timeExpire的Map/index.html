@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>几种支持timeExpire的Map | SL&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="。类似 Redis 和 Java 的缓存 Ehcache 都提供了一种很便利 Cache 功能，即可以设置一条记录（一个存储）的超时时间，当超时时间达到时，会自动进行回收，即失效。今天工作中有了类似的需求，但是因为需求不多，并不想再项目中额外的引入 Redis，造成太多的不必要的开销，所以研究比较了现在几个实现该功能的 Map">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几种支持timeExpire的Map">
+<meta property="og:url" content="http://caltyang.cn/2016/01/11/几种支持timeExpire的Map/index.html">
+<meta property="og:site_name" content="SL&#39;s Blog">
+<meta property="og:description" content="。类似 Redis 和 Java 的缓存 Ehcache 都提供了一种很便利 Cache 功能，即可以设置一条记录（一个存储）的超时时间，当超时时间达到时，会自动进行回收，即失效。今天工作中有了类似的需求，但是因为需求不多，并不想再项目中额外的引入 Redis，造成太多的不必要的开销，所以研究比较了现在几个实现该功能的 Map">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://caltyang.cn/images/20150111/guavadontwork.png">
+<meta property="og:updated_time" content="2017-12-23T12:00:36.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="几种支持timeExpire的Map">
+<meta name="twitter:description" content="。类似 Redis 和 Java 的缓存 Ehcache 都提供了一种很便利 Cache 功能，即可以设置一条记录（一个存储）的超时时间，当超时时间达到时，会自动进行回收，即失效。今天工作中有了类似的需求，但是因为需求不多，并不想再项目中额外的引入 Redis，造成太多的不必要的开销，所以研究比较了现在几个实现该功能的 Map">
+<meta name="twitter:image" content="http://caltyang.cn/images/20150111/guavadontwork.png">
+  
+    <link rel="alternate" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">SL&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://caltyang.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-几种支持timeExpire的Map" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/11/几种支持timeExpire的Map/" class="article-date">
+  <time datetime="2016-01-11T06:41:35.000Z" itemprop="datePublished">2016-01-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      几种支持timeExpire的Map
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>。类似 Redis 和 Java 的缓存 Ehcache 都提供了一种很便利 Cache 功能，即可以设置一条记录（一个存储）的超时时间，当超时时间达到时，会自动进行回收，即失效<br>。今天工作中有了类似的需求，但是因为需求不多，并不想再项目中额外的引入 Redis，造成太多的不必要的开销，所以研究比较了现在几个实现该功能的 Map<br><a id="more"></a></p>
+<h2 id="0x01-Google-Guava"><a href="#0x01-Google-Guava" class="headerlink" title="0x01 Google Guava"></a>0x01 Google Guava</h2><hr>
+<p>。好吧，把 Guava 放在第一位完全是因为对 Google 的尊敬。Google Guava 项目是一个谷歌自己的 Java 库，其中放了很多 Google 自己使用的对 JDK 本身的增强机制。比如上面的带时间限制的 Map、不可变集合等<br>。具体介绍可以参见下面的 Reference，不过其实也就是 Google 官方文档的翻译。<br>。因为只需要使用到带 timeExpired 的 Map，也就是 Guava 中的 Cache，所以一个很简单的案例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    Cache&lt;Object, Object&gt; demo = CacheBuilder.newBuilder()</span><br><span class="line">            .maximumSize(<span class="number">10000</span>)</span><br><span class="line">            .expireAfterWrite(<span class="number">1</span>, TimeUnit.SECONDS)</span><br><span class="line">            .build();</span><br><span class="line">    demo.put(<span class="string">"a1"</span>,<span class="string">"a1"</span>);</span><br><span class="line">    demo.put(<span class="string">"a2"</span>,<span class="string">"a2"</span>);</span><br><span class="line">    demo.put(<span class="string">"a3"</span>,<span class="string">"a3"</span>);</span><br><span class="line">    demo.put(<span class="string">"a4"</span>,<span class="string">"a4"</span>);</span><br><span class="line">    System.out.println(demo.size());</span><br><span class="line">    Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">    System.out.println(demo.size());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>。当然，不要忘了引入包，我这里使用 Gradle，所以在 build.gradle 中添加依赖：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile(<span class="string">'com.google.guava:guava:19.0'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>。但是上述方法在我这边是不能实现到时间自动回收的，哪怕我 build 中传入自己 CacheLoader，Google 搜了，结果如下：<br><img src="/images/20150111/guavadontwork.png" alt=""></p>
+<p>。当然可能是因为自己代码有问题，不过从上面的例子能看出来，起码，使用 Guava 并不是很简单，也许 API 并不和自己平时熟悉的一致</p>
+<h2 id="0x02-Apache-Collections4"><a href="#0x02-Apache-Collections4" class="headerlink" title="0x02 Apache Collections4"></a>0x02 Apache Collections4</h2><hr>
+<p>。Collections 是大名鼎鼎的 Apache Commons 系列中提供的一系列对 JDK 集合的增强。其他比如 lang 中对 StringUtils 等工具类都是很好的工具，也很有参考、使用价值<br>。这里我们使用的是 Collections4 中的<br>。查看手册我们知道，可以直接在构建时传递一个 Expire Time ，之后只需要像使用普通的 Map 即可<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    PassiveExpiringMap map = <span class="keyword">new</span> PassiveExpiringMap(<span class="number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">    map.put(<span class="string">"a1"</span>,<span class="string">"a1"</span>);</span><br><span class="line">    map.put(<span class="string">"a2"</span>,<span class="string">"a2"</span>);</span><br><span class="line">    map.put(<span class="string">"a3"</span>,<span class="string">"a3"</span>);</span><br><span class="line">    map.put(<span class="string">"a4"</span>,<span class="string">"a4"</span>);</span><br><span class="line">    System.out.println(map.size());</span><br><span class="line">    Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">    map.put(<span class="string">"a5"</span>,<span class="string">"a5"</span>);</span><br><span class="line">    System.out.println(map.size());</span><br><span class="line">    Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">    System.out.println(map.size());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>。打印结果为 4、1、0，如我们猜测的一样，可见，其使用起来相对 Guava 方便了很多<br>。但是这里有一个坑，就是 PassiveExpiringMap 是非线程安全的，所以如果有多线程的需求，最好手工加锁</p>
+<h2 id="0x03-Expiringmap"><a href="#0x03-Expiringmap" class="headerlink" title="0x03 Expiringmap"></a>0x03 Expiringmap</h2><hr>
+<p>。好吧，这知识一个歪果仁的作品，从 Github 上看，也不是来自 Apache 或者 Google 这样的大组织<br>。但是看过他源码之后，并没有找到什么问题，也完全能够实现功能<br>。其使用如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Connection&gt; map = ExpiringMap.builder()</span><br><span class="line">  .expiration(<span class="number">30</span>, TimeUnit.SECONDS)</span><br><span class="line">  .build();</span><br></pre></td></tr></table></figure></p>
+<p>。还可以添加 Policy，比如访问后多少秒超时、写入后多少秒超时：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Connection&gt; map = ExpiringMap.builder()</span><br><span class="line">  .expirationPolicy(ExpirationPolicy.ACCESSED)</span><br><span class="line">  .build();</span><br></pre></td></tr></table></figure></p>
+<p>。使用也和 PassiveExpiringMap 一样，原生的 put\get ，但是比 PassiveExpiriingMap 不同的是，他是一个线程安全的 Map<br>。内部原理其实也并不复杂，维护了一个 Scheduled 的 SingleThread 来持续回收过期的 Entry 而已：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">scheduleEntry</span><span class="params">(ExpiringEntry&lt;K, V&gt; entry)</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (entry == <span class="keyword">null</span> || entry.scheduled)</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">Runnable runnable = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">synchronized</span> (entry) &#123;</span><br><span class="line">  <span class="keyword">if</span> (entry.scheduled)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">final</span> WeakReference&lt;ExpiringEntry&lt;K, V&gt;&gt; entryReference = <span class="keyword">new</span> WeakReference&lt;ExpiringEntry&lt;K, V&gt;&gt;(entry);</span><br><span class="line">  runnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      ExpiringEntry&lt;K, V&gt; entry = entryReference.get();</span><br><span class="line">      writeLock.lock();</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (entry != <span class="keyword">null</span> &amp;&amp; entry.scheduled) &#123;</span><br><span class="line">          entries.remove(entry.key);</span><br><span class="line">          notifyListeners(entry);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">// Expires entries and schedules the next entry</span></span><br><span class="line">          Iterator&lt;ExpiringEntry&lt;K, V&gt;&gt; iterator = entries.valuesIterator();</span><br><span class="line">          <span class="keyword">boolean</span> schedulePending = <span class="keyword">true</span>;</span><br><span class="line">          <span class="keyword">while</span> (iterator.hasNext() &amp;&amp; schedulePending) &#123;</span><br><span class="line">            ExpiringEntry&lt;K, V&gt; nextEntry = iterator.next();</span><br><span class="line">            <span class="keyword">if</span> (nextEntry.expectedExpiration.get() &lt;= System.nanoTime()) &#123;</span><br><span class="line">              iterator.remove();</span><br><span class="line">              notifyListeners(nextEntry);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              scheduleEntry(nextEntry);</span><br><span class="line">              schedulePending = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchElementException ignored) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        writeLock.unlock();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  Future&lt;?&gt; entryFuture = expirer.schedule(runnable, entry.expectedExpiration.get() - System.nanoTime(),</span><br><span class="line">      TimeUnit.NANOSECONDS);</span><br><span class="line">  entry.schedule(entryFuture);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><hr>
+<p>。如果考虑到牌子的话，推荐选择 Guava 或者 Collections4<br>。但是因为 Guava 我实验并未成功，所以我个人推荐 Apache，但是，如果你对线程安全又十分在意，而且不想手工加锁，可以考虑 ExpiringMap，而且介于现在项目中并没有太多代码，所以维护成本并不是特别高，又或者你可以完全按照其思想自己再实现一个。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><hr>
+<p><a href="http://ifeve.com/google-guava/" target="_blank" rel="noopener">Google Guava官方教程（中文版）</a><br><a href="https://stackoverflow.com/questions/21986551/guava-cachebuilder-doesnt-call-removal-listener" target="_blank" rel="noopener">Guava CacheBuilder doesn’t call removal listener</a><br><a href="http://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/map/PassiveExpiringMap.html" target="_blank" rel="noopener">PassiveExpiringMap Reference</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://caltyang.cn/2016/01/11/几种支持timeExpire的Map/" data-id="cjlyqln8i000jdjjbhaa1b26z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/01/SpringBoot中配置CORS/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SpringBoot中配置CORS
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/15/简单的使用Matlab/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">简单的使用Matlab</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计/">设计</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/OSX/" style="font-size: 10px;">OSX</a> <a href="/tags/Spring/" style="font-size: 13.33px;">Spring</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/23/记一次解决CLOSE-WAIT/">记一次解决CLOSE_WAIT</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/15/SpringBoot中Profile/">SpringBoot中Profile</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/04/用Nginx进行反向代理/">用Nginx进行反向代理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/08/使用supervisor管理进程/">使用supervisor管理进程</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/05/SpringBoot中开启热部署/">SpringBoot中开启热部署</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Shawn Liu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

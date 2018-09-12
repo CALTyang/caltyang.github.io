@@ -5,15 +5,20 @@
   
 
   
-  <title>Archives | SL&#39;s Blog</title>
+  <title>使用jEnv管理JDK版本 | SL&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SL&#39;s Blog">
-<meta property="og:url" content="http://caltyang.cn/archives/index.html">
+  <meta name="description" content="。ruby开发者一般都熟悉这样一个东西，即rvm（Ruby Version Management），可以用来管理多个ruby环境。其实Java环境中同样有这样一个工具用来管理多个JDK环境，即 jEnv。官网：http://www.jenv.be/">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用jEnv管理JDK版本">
+<meta property="og:url" content="http://caltyang.cn/2016/12/16/使用jEnv管理JDK版本/index.html">
 <meta property="og:site_name" content="SL&#39;s Blog">
+<meta property="og:description" content="。ruby开发者一般都熟悉这样一个东西，即rvm（Ruby Version Management），可以用来管理多个ruby环境。其实Java环境中同样有这样一个工具用来管理多个JDK环境，即 jEnv。官网：http://www.jenv.be/">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-12-23T12:00:36.842Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SL&#39;s Blog">
+<meta name="twitter:title" content="使用jEnv管理JDK版本">
+<meta name="twitter:description" content="。ruby开发者一般都熟悉这样一个东西，即rvm（Ruby Version Management），可以用来管理多个ruby环境。其实Java环境中同样有这样一个工具用来管理多个JDK环境，即 jEnv。官网：http://www.jenv.be/">
   
     <link rel="alternate" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -60,226 +65,75 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/23/记一次解决CLOSE-WAIT/" class="archive-article-date">
-  <time datetime="2017-12-23T11:45:42.000Z" itemprop="datePublished">Dec 23</time>
+        <section id="main"><article id="post-使用jEnv管理JDK版本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/16/使用jEnv管理JDK版本/" class="article-date">
+  <time datetime="2016-12-16T11:24:22.000Z" itemprop="datePublished">2016-12-16</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/23/记一次解决CLOSE-WAIT/">记一次解决CLOSE_WAIT</a>
+    <h1 class="article-title" itemprop="name">
+      使用jEnv管理JDK版本
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>。ruby开发者一般都熟悉这样一个东西，即rvm（Ruby Version Management），可以用来管理多个ruby环境<br>。其实Java环境中同样有这样一个工具用来管理多个JDK环境，即 jEnv<br>。官网：<a href="http://www.jenv.be/" target="_blank" rel="noopener">http://www.jenv.be/</a><br><a id="more"></a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><hr>
+<p>。这里以OSX系统为例，我们可以直接使用Homebrew进行安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install jenv</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><hr>
+<p>。我们可以使用add来添加多个JDK<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv add /path/to/java/home</span><br></pre></td></tr></table></figure></p>
+<p>。查看当前用jEnv管理的JDK版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv versions</span><br></pre></td></tr></table></figure></p>
+<p>。指定一个JDK版本，这里分2种，全局和local，后面的xxx指定特定的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jenv global xxx</span><br><span class="line">jenv local xxx</span><br></pre></td></tr></table></figure></p>
+<h2 id="OSX中Tip"><a href="#OSX中Tip" class="headerlink" title="OSX中Tip"></a>OSX中Tip</h2><hr>
+<p>。在OSX中，可以使用下面命令查看路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/libexec/java_home -V</span><br></pre></td></tr></table></figure></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><hr>
+<p>。虽然自己并没有什么使用多个版本JDK的需求，但是知道并安利一下这个小工具还是不错的<br>。然而自己在实际使用中，遇到了一个小问题，即某些时候，会无法正确识别JAVA_HOME等变量，其实配置开启一个插件即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jenv enable-plugin export</span><br></pre></td></tr></table></figure></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><hr>
+<p><a href="https://github.com/gcuisinier/jenv" target="_blank" rel="noopener">https://github.com/gcuisinier/jenv</a><br><a href="https://boxingp.github.io/blog/2015/01/25/manage-multiple-versions-of-java-on-os-x/" target="_blank" rel="noopener">https://boxingp.github.io/blog/2015/01/25/manage-multiple-versions-of-java-on-os-x/</a><br><a href="http://www.lrj.name/post-show/id/5565a9d739b793000000000cc2" target="_blank" rel="noopener">http://www.lrj.name/post-show/id/5565a9d739b793000000000cc2</a><br><a href="http://www.importnew.com/14866.html" target="_blank" rel="noopener">ImportNew - 在OS X管理多个Java版本</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://caltyang.cn/2016/12/16/使用jEnv管理JDK版本/" data-id="cjlyqln8c000ddjjbvmvw8gkl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/23/使用mapStruct进行BeanMap/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用mapStruct进行BeanMap
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/08/存树形结构的几种表设计/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">存树形结构的几种表设计</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/15/SpringBoot中Profile/" class="archive-article-date">
-  <time datetime="2017-12-15T05:39:55.000Z" itemprop="datePublished">Dec 15</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/15/SpringBoot中Profile/">SpringBoot中Profile</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/12/04/用Nginx进行反向代理/" class="archive-article-date">
-  <time datetime="2017-12-04T06:12:01.000Z" itemprop="datePublished">Dec 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/04/用Nginx进行反向代理/">用Nginx进行反向代理</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/08/使用supervisor管理进程/" class="archive-article-date">
-  <time datetime="2017-03-08T05:31:22.000Z" itemprop="datePublished">Mar 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/08/使用supervisor管理进程/">使用supervisor管理进程</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/05/SpringBoot中开启热部署/" class="archive-article-date">
-  <time datetime="2017-03-05T05:57:36.000Z" itemprop="datePublished">Mar 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/05/SpringBoot中开启热部署/">SpringBoot中开启热部署</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/05/命令行中如何科学上网/" class="archive-article-date">
-  <time datetime="2017-03-05T05:52:24.000Z" itemprop="datePublished">Mar 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/05/命令行中如何科学上网/">命令行中如何科学上网</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/02/16/开启ActiveMQ的JMX/" class="archive-article-date">
-  <time datetime="2017-02-16T11:36:42.000Z" itemprop="datePublished">Feb 16</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/16/开启ActiveMQ的JMX/">开启ActiveMQ的JMX</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/12/23/使用mapStruct进行BeanMap/" class="archive-article-date">
-  <time datetime="2016-12-23T06:58:39.000Z" itemprop="datePublished">Dec 23</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/23/使用mapStruct进行BeanMap/">使用mapStruct进行BeanMap</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/12/16/使用jEnv管理JDK版本/" class="archive-article-date">
-  <time datetime="2016-12-16T11:24:22.000Z" itemprop="datePublished">Dec 16</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/16/使用jEnv管理JDK版本/">使用jEnv管理JDK版本</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/10/08/存树形结构的几种表设计/" class="archive-article-date">
-  <time datetime="2016-10-08T06:52:25.000Z" itemprop="datePublished">Oct 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/08/存树形结构的几种表设计/">存树形结构的几种表设计</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-  </nav>
 
 </section>
         
