@@ -11,7 +11,7 @@ tags: linux
 ## 安装配置
 ***
 。安装可以直接使用pip进行安装
-```
+```bash
 sudo pip install supervisor
 ```
 。默认的配置在 /etc/supervisor 下
