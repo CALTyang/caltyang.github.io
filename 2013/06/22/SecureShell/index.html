@@ -1,79 +1,95 @@
-<!DOCTYPE HTML>
+
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   
   <title>SecureShell | SL&#39;s Blog</title>
-  <meta name="author" content="Shawn Liu">
-  
-  <meta name="description" content="。SSH用于远程管理，与个人电脑不同，服务器一般都是运行在IDC机房中，所以我们通常不会直接接触服务器硬件，而是通过各种远程管理方式对服务器进行控制。常见远程管理工具：1）RDP(remote desktop protocol)协议
-
-windows远程桌面管理
-
-2）telnet
-
-CLI界面下的远程管理，几乎所有操作系统都有内容明文传输
-
-3）SSH（secure shell）
-
-CLI界面下的远程管理几乎所有OS都有（内容加密）类UNIX系统下主要的远程管理方式（Linux，BSD，MacOS）
-
-4）RFB（remote frame buffer）
-
-图形化远程管理协议VNC（virtual network computing）使用的协议主要作为类UNIX系统下主要的图形化远程管理方式">
-  
-  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="SecureShell"/>
-  <meta property="og:site_name" content="SL&#39;s Blog"/>
-
+  <meta name="description" content="。SSH用于远程管理，与个人电脑不同，服务器一般都是运行在IDC机房中，所以我们通常不会直接接触服务器硬件，而是通过各种远程管理方式对服务器进行控制。常见远程管理工具：1）RDP(remote desktop protocol)协议  windows远程桌面管理  2）telnet  CLI界面下的远程管理，几乎所有操作系统都有内容明文传输  3）SSH（secure shell）  CLI界面下">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SecureShell">
+<meta property="og:url" content="http://caltyang.cn/2013/06/22/SecureShell/index.html">
+<meta property="og:site_name" content="SL&#39;s Blog">
+<meta property="og:description" content="。SSH用于远程管理，与个人电脑不同，服务器一般都是运行在IDC机房中，所以我们通常不会直接接触服务器硬件，而是通过各种远程管理方式对服务器进行控制。常见远程管理工具：1）RDP(remote desktop protocol)协议  windows远程桌面管理  2）telnet  CLI界面下的远程管理，几乎所有操作系统都有内容明文传输  3）SSH（secure shell）  CLI界面下">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-12-23T12:00:36.840Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SecureShell">
+<meta name="twitter:description" content="。SSH用于远程管理，与个人电脑不同，服务器一般都是运行在IDC机房中，所以我们通常不会直接接触服务器硬件，而是通过各种远程管理方式对服务器进行控制。常见远程管理工具：1）RDP(remote desktop protocol)协议  windows远程桌面管理  2）telnet  CLI界面下的远程管理，几乎所有操作系统都有内容明文传输  3）SSH（secure shell）  CLI界面下">
   
-    <meta property="og:image" content=""/>
+    <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
-
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
 </head>
-
-
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">SL&#39;s Blog</a></h1>
-  <h2><a href="/"></a></h2>
-</div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">SL&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="caltyang.cn">
+        </form>
+      </div>
+    </div>
+  </div>
 </header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+    <div class="outer">
+      <section id="main"><article id="post-SecureShell" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/22/SecureShell/" class="article-date">
+  <time datetime="2013-06-22T05:13:10.000Z" itemprop="datePublished">2013-06-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-06-22T05:13:10.000Z"><a href="/2013/06/22/SecureShell/">2013-06-22</a></time>
-      
-      
-  
-    <h1 class="title">SecureShell</h1>
+    <h1 class="article-title" itemprop="name">
+      SecureShell
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
         <p>。SSH用于远程管理，与个人电脑不同，服务器一般都是运行在IDC机房中，所以我们通常不会直接接触服务器硬件，而是通过各种远程管理方式对服务器进行控制<br>。常见远程管理工具：<br>1）RDP(remote desktop protocol)协议</p>
 <blockquote>
@@ -114,115 +130,142 @@ CLI界面下的远程管理几乎所有OS都有（内容加密）类UNIX系统�
 
       
     </div>
-    <footer>
+    <footer class="article-footer">
       
-        
-        
-  
-  <div class="tags">
-    <a href="/tags/linux/">linux</a>
-  </div>
-
-        
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    
-    
-      <a class="addthis_button_tweet"></a>
-    
-    
-      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-    
-    
-      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+        <a data-url="http://caltyang.cn/2013/06/22/SecureShell/" data-id="cjm06rwm90001cvjb49frk3gw" class="article-share-link">Share</a>
+      
 
       
-      <div class="clearfix"></div>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
     </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/05/Linux运行级别/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux运行级别
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
 
-
-<section id="comment">
-  <h1 class="title">Comments</h1>
-
-  
-      <div id="fb-root"></div>
-<script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-comments" data-href="http://caltyang.cn/2013/06/22/SecureShell/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
 </section>
-
-</div></div>
-    <aside id="sidebar" class="alignright">
+      
+      <aside id="sidebar">
   
-
+    
   
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/Java/">Java</a><small>6</small></li>
-  
-    <li><a href="/tags/Maven/">Maven</a><small>1</small></li>
-  
-    <li><a href="/tags/OSX/">OSX</a><small>1</small></li>
-  
-    <li><a href="/tags/Spring/">Spring</a><small>2</small></li>
-  
-    <li><a href="/tags/linux/">linux</a><small>3</small></li>
-  
-    <li><a href="/tags/工具/">工具</a><small>2</small></li>
-  
-    <li><a href="/tags/数据库/">数据库</a><small>1</small></li>
-  
-    <li><a href="/tags/架构/">架构</a><small>1</small></li>
-  
-    <li><a href="/tags/网络/">网络</a><small>1</small></li>
-  
-    <li><a href="/tags/设计/">设计</a><small>1</small></li>
-  
-  </ul>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计/">设计</a><span class="tag-list-count">1</span></li></ul>
+    </div>
   </div>
-  <footer id="footer" class="inner"><div class="alignleft">
+
   
-  &copy; 2018 Shawn Liu
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/OSX/" style="font-size: 13.33px;">OSX</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/linux/" style="font-size: 16.67px;">linux</a> <a href="/tags/工具/" style="font-size: 13.33px;">工具</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+    </div>
+  </div>
+
   
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/11/单例的几种写法/">单例的几种写法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/14/记OSX中遇到的一次Finder文件灰化的问题/">记OSX中遇到的一次Finder文件灰化的问题</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/23/记一次解决CLOSE-WAIT/">记一次解决CLOSE_WAIT</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/04/用Nginx进行反向代理/">用Nginx进行反向代理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/08/使用supervisor管理进程/">使用supervisor管理进程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Shawn Liu<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="totop"><img src="/img/scrollup.png"/></a>
 </div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
+
+<!-- totop end -->
+
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+<script src="/js/script.js"></script>
 
+</div>
 </body>
 </html>
