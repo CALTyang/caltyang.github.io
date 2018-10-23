@@ -1,5 +1,5 @@
 ---
-title: 使用lmobok
+title: 使用Lombok
 date: 2017-12-21 23:36:58
 tags: Java
 ---
