@@ -14,10 +14,13 @@
 <meta property="og:site_name" content="SL&#39;s Blog">
 <meta property="og:description" content="。Homebrew 是 OSX 平台下一个很好的包管理器。如果是命令行玩家，或者用过 Linux 之类的，对 apt、yum 等也不陌生，homebrew 能够极大的简化我们安装三方工具的步骤，高效便捷。当然 Homebrew 还不止步于命令行工具，通过homebrew-cask ，甚至可以将包管理拓展到 GUI 应用，比如我需要安装一个新的 chome，直接 cask install chrom">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-12-23T12:00:36.839Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160429/brew_info_cloc.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160429/cakebrew.png">
+<meta property="og:updated_time" content="2018-10-23T09:10:39.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Homebrew是如何工作的">
 <meta name="twitter:description" content="。Homebrew 是 OSX 平台下一个很好的包管理器。如果是命令行玩家，或者用过 Linux 之类的，对 apt、yum 等也不陌生，homebrew 能够极大的简化我们安装三方工具的步骤，高效便捷。当然 Homebrew 还不止步于命令行工具，通过homebrew-cask ，甚至可以将包管理拓展到 GUI 应用，比如我需要安装一个新的 chome，直接 cask install chrom">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160429/brew_info_cloc.png">
   
     <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -114,10 +117,9 @@
 <p>。update 是更新 homebrew 的 formula 表，其实就是进行一个 pull request，和远程仓库进行统一<br>。upgrade 则是实际的进行 package 的更新</p>
 </blockquote>
 <h2 id="0x02-应用是如何安装的"><a href="#0x02-应用是如何安装的" class="headerlink" title="0x02 应用是如何安装的"></a>0x02 应用是如何安装的</h2><hr>
-<p>。我们知道 brew 安装的软件默认都在 /usr/local/Cellar 文件夹下<br>。而其实 homebrew 的安装目录也是在 /usr/local 下的，homebrew 会在该目录下初试 git 环境，然后在该目录下维护和track包之类，查看该目录下的 git 配置可发现</p>
+<p>。我们知道 brew 安装的软件默认都在 /usr/local/Cellar 文件夹下<br>。而其实 homebrew 的安装目录也是在 /usr/local 下的，homebrew 会在该目录下初始 git 环境，然后在该目录下维护和track包之类，查看该目录下的 git 配置可发现</p>
 <p>。默认安装的 Formula 在 /usr/local/Library/Formula 文件夹下<br>。我们已 cloc（一个代码统计的工具）为例，它的formula如下：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cloc</span> &lt; Formula</span></span><br><span class="line">  desc <span class="string">"Statistics utility to count lines of code"</span></span><br><span class="line">  homepage <span class="string">"https://github.com/AlDanial/cloc/"</span></span><br><span class="line">  url <span class="string">"https://github.com/AlDanial/cloc/archive/v1.66.tar.gz"</span></span><br><span class="line">  sha256 <span class="string">"6d8b5e9fac8934478a0fd815f60d814b93d4a12344c4820f5b47a55048b21d53"</span></span><br><span class="line">  head <span class="string">"https://github.com/AlDanial/cloc.git"</span></span><br><span class="line">  bottle <span class="keyword">do</span></span><br><span class="line">    cellar <span class="symbol">:any_skip_relocation</span></span><br><span class="line">    sha256 <span class="string">"c140cd2b7244b48e45971130d69ffa3a250d7fda4885098b6a01a33fb3bc4ef1"</span> =&gt; <span class="symbol">:el_capitan</span></span><br><span class="line">    sha256 <span class="string">"4abbd7aec11e52eac56a1ab969a3825ff162f7d19598b94c02116dc01ad18e43"</span> =&gt; <span class="symbol">:yosemite</span></span><br><span class="line">    sha256 <span class="string">"994e73fb9afde00c2f3fde26a9421707bf73ce85de6d7021d4db2819307fbd48"</span> =&gt; <span class="symbol">:mavericks</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">install</span></span></span><br><span class="line">    system <span class="string">"make"</span>, <span class="string">"-C"</span>, <span class="string">"Unix"</span>, <span class="string">"prefix=<span class="subst">#&#123;prefix&#125;</span>"</span>, <span class="string">"install"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  test <span class="keyword">do</span></span><br><span class="line">    (testpath/<span class="string">"test.c"</span>).write &lt;&lt;-EOS.undent</span><br><span class="line">      <span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">      int main(void) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    EOS</span><br><span class="line">    assert_match <span class="string">"1,C,0,0,4"</span>, shell_output(<span class="string">"<span class="subst">#&#123;bin&#125;</span>/cloc --csv ."</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>。细心的同学可能就发现了，这里的一些信息其实和 brew desc 和 brew info 时是一致的，比如：</p>
-<p>。所以，当我们安装 cloc （通过 brew install cloc）时，首先，homebrew 会使用 curl 来获取文件，并放在缓存目录中<br>。然后出于安全等因素考虑，会计算 checksum，并和sha256那个作比对<br>。如果文件下载正确的话，接下啦 homebrew 会解压归档到一个临时文件夹，然后执行 install 命令，比如这里就是下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -C Unix prefix=/usr/local/Cellar/xxx install</span><br></pre></td></tr></table></figure></p>
+<p>。细心的同学可能就发现了，这里的一些信息其实和 brew desc 和 brew info 时是一致的，比如：<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160429/brew_info_cloc.png" alt=""><br>。所以，当我们安装 cloc （通过 brew install cloc）时，首先，homebrew 会使用 curl 来获取文件，并放在缓存目录中<br>。然后出于安全等因素考虑，会计算 checksum，并和sha256那个作比对<br>。如果文件下载正确的话，接下啦 homebrew 会解压归档到一个临时文件夹，然后执行 install 命令，比如这里就是下面的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -C Unix prefix=/usr/local/Cellar/xxx install</span><br></pre></td></tr></table></figure></p>
 <p>。当安装顺利，homebrew 会建立一个 /usr/local/cellar/xxx/bin 下命令的软连接到 /usr/local/bin 以确保你可以直接在命令行中执行该命令<br>。当然，同样会建立到 lib 和 man 的软连接<br>。安装完成后，你也可以使用 brew test 命令来测试安装<br>。test 命令会建立一个临时文件夹，然后建立一个 sandbox，之后执行 formula 中的test方法</p>
 <h2 id="0x03-几个模糊的概念"><a href="#0x03-几个模糊的概念" class="headerlink" title="0x03 几个模糊的概念"></a>0x03 几个模糊的概念</h2><hr>
 <p>1.brew tap</p>
@@ -141,7 +143,7 @@
 <h2 id="homebrew-service"><a href="#homebrew-service" class="headerlink" title="homebrew service"></a>homebrew service</h2><hr>
 <p>。我们知道有些 Linux 中可以通过 service 命令来开启关闭一些服务，比如 Nginx，MySQL 之类<br>。OSX 中也可以，不过是使用 launchctl<br>。Homebrew service 其实就是意在提供一个统一的 service 方式来管理服务<br>。参考：<a href="https://github.com/Homebrew/homebrew-services" target="_blank" rel="noopener">github-homebrewService</a></p>
 <h2 id="cakebrew"><a href="#cakebrew" class="headerlink" title="cakebrew"></a>cakebrew</h2><hr>
-<p>。这是一个图形化的 homebrew 工具<br>。可以用来可视化的安装，卸载，管理 package 等</p>
+<p>。这是一个图形化的 homebrew 工具，<a href="https://www.cakebrew.com/" target="_blank" rel="noopener">官网</a><br>。可以用来可视化的安装，卸载，管理 package 等<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160429/cakebrew.png" alt=""></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><hr>
 <p><a href="https://www.quora.com/How-does-Homebrew-work-internally" target="_blank" rel="noopener">How does Homebrew work internally?</a><br><a href="https://www.quora.com/What-is-the-history-of-Homebrew" target="_blank" rel="noopener">What is the history of Homebrew?</a><br><a href="https://icyleaf.com/2014/01/homebrew-hidden-commands/" target="_blank" rel="noopener">Homebrew 隐藏命令</a><br><a href="http://dghubble.com/blog/posts/homebrew-os-x-package-management/" target="_blank" rel="noopener">Homebrew: OS X Package Management</a></p>
 
@@ -149,7 +151,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2016/04/29/Homebrew是如何工作的/" data-id="cjnlciafk0000exjbwkr1gsxa" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2016/04/29/Homebrew是如何工作的/" data-id="cjnlion1b0000ndjb9x8y7cve" class="article-share-link">Share</a>
       
 
       
