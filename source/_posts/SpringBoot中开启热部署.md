@@ -7,7 +7,7 @@ tags: Spring
 SpringBoot中开启热部署
 使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作
 。好像是在 SpringBoot 1.3+ 引入
-![](/images/20170305/banner.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20170305/banner.png)
 <!--more-->
 
 使用步骤

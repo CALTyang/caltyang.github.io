@@ -5,12 +5,12 @@ tags: 网络
 ---
 
 。今天在工作中遇到了Nginx请求大量CLOSE_WAIT的状态，如图:
-![](/images/20171223/problem.jpg)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20171223/problem.jpg)
 <!--more-->
 ## 什么是CLOSE_WAIT
 ***
 。状态流程：
-![](/images/20171223/close_wait.jpg)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20171223/close_wait.jpg)
 。我们知道，TCP有3次握手，4次挥手，CLOS_WAIT就是挥手过程中的一个状态
 > 指的是客户端发送完挥手的 FIN 包之后，服务器端还没来得及返回 ACK 的状态
 
@@ -19,7 +19,7 @@ tags: 网络
    sysctl net.ipv4.tcp_fin_timeout
    cat /proc/sys/net/ipv4/tcp_fin_timeout
 ```
-![](/images/20171223/ms.jpg)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20171223/ms.jpg)
 
 ## 具体原因
 ***

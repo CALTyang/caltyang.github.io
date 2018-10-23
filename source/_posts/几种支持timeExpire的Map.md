@@ -34,7 +34,7 @@ compile('com.google.guava:guava:19.0')
 ```
 
 。但是上述方法在我这边是不能实现到时间自动回收的，哪怕我 build 中传入自己 CacheLoader，Google 搜了，结果如下：
-![](/images/20150111/guavadontwork.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20150111/guavadontwork.png)
 
 。当然可能是因为自己代码有问题，不过从上面的例子能看出来，起码，使用 Guava 并不是很简单，也许 API 并不和自己平时熟悉的一致
 

@@ -8,7 +8,7 @@ tags: OSX
 <!--more-->
 > 如下图，Finder中某些文件莫名的灰化了，且也不能修改文件名
 
-![](/images/20180114/nasfilelist.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20180114/nasfilelist.png)
 原因：
 > 不详
 
@@ -17,7 +17,7 @@ tags: OSX
 ```bash
 ls -@eln <file_path>
 ```
-![](/images/20180114/lsresult.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20180114/lsresult.png)
 
 2）复制显示结果中的com.apple.FinderInfo
 

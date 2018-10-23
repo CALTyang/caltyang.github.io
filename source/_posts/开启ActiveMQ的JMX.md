@@ -12,9 +12,9 @@ tags: Java
 ***
 1）修改 conf/activemq.xml 中配置
 。修改 broker 标签，添加属性 userJmx
-![](/images/20160216/1.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/1.png)
 2）修改 bin/env 配置
-![](/images/20160216/2.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/2.png)
 
 。取消59行左右配置，并增加：
 ```
@@ -22,10 +22,10 @@ ACTIVEMQ_SUNJMX_START="$ACTIVEMQ_SUNJMX_START -Djava.rmi.server.hostname=192.168
 ```
 。具体 IP 以实际为主
 最后效果：
-![](/images/20160216/3.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/3.png)
 
 3）修改 conf/ 下面 jmx.access 的权限，为 600，直接 chmod 600 jmx.access 即可
-![](/images/20160216/4.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/4.png)
 。不然会报错
 
 4）增加用户：
@@ -34,8 +34,8 @@ ACTIVEMQ_SUNJMX_START="$ACTIVEMQ_SUNJMX_START -Djava.rmi.server.hostname=192.168
 > password 是实际用户名
 
 。这里增加一个读消息的账户，结果如下：
-![](/images/20160216/jmxaccess.png)
-![](/images/20160216/jmxpassword.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/jmxaccess.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/jmxpassword.png)
 
 ## 0x02 测试：
 ***
@@ -46,4 +46,4 @@ service:jmx:rmi:///jndi/rmi://192.168.1.16:11099/jmxrmi
 。ip 以实际为准
 
 2）用户名和密码按照上述为 caltyang helloworld，使用 jconsole 测试连接
-![](/images/20160216/7.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/7.png)

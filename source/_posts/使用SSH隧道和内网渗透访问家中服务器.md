@@ -11,9 +11,9 @@ tags: Linux
 ***
 内网渗透推荐这样一款工具：Natapp，[官网](https://natapp.cn/)，其功能类似ngrok，不过给你提供了公网的机器，你要做的就是在其控制界面配置一下本地服务端口，选协议，然后在本地机器上启动对应服务即可。
 针对不同场景、流量需求，natapp提供了多种套餐，如下。因为自己只是访问家中电脑方面控制，所以买了个最低配即可：
-![](/images/20181023/natapp_services.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/natapp_services.png)
 。使用方式官网也有教程: [连接](https://natapp.cn/article/nohup)，使用命令启动即可，同时传递参数authtoken，其在购买服务之后可以在管理界面查询到，如下：
-![](/images/20181023/natapp_webconsole.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/natapp_webconsole.png)
 注意其协议有两种，TCP和HTTP，因为这里是配合SSH隧道使用，所以选择TCP，端口则是你SSH服务监听的端口(默认22)
 
 ## 0x02 通过supervisor配置服务
@@ -34,13 +34,13 @@ stdout_logfile=/tmp/natapp.log
 ***
 SSH隧道是什么这里就不记录了。这里我们主要通过SSH隧道来解决多端口的问题。简单理解就是虽然我们是访问不同端口，但是我们可以配置一个本地端口和远程机器的端口映射，然后通过SSH隧道来建立连接。
 命令行的方式并不方便，我这里使用的是OSX系统，所以推荐一个免费的SSH隧道管理的GUI工具[SSH Tunnel Manager](https://www.tynsoe.org/v2/stm/)
-![](/images/20181023/ssh_tunnel_manager.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/ssh_tunnel_manager.png)
 其界面大致如下，我们配置好远程机器，及端口映射即可
-![](/images/20181023/ssh_tunnel_config.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/ssh_tunnel_config.png)
 > 注：按照你自己的连接信息配置
 
 以Tomcat为例，我们先通过ssh透过natapp访问远程机器，启动Tomcat，然后因为上面透过SSH隧道已经建立了映射，所以我们直接访问本地端口，就能看到远程机器的Tomcat服务了
-![](/images/20181023/tomcat_webui.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/tomcat_webui.png)
 
 ## 0x04 总结
 ***

@@ -50,7 +50,7 @@ password=admin                ; should be same as http_password if set
 ```
 
 。实际使用类似WebUI中，可以用来控制配置好的进程
-![](/images/20170308/supervisorctl.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20170308/supervisorctl.png)
 
 ## 配置进程
 ***
@@ -81,7 +81,7 @@ password=admin               ; (default is no password (open server))
 ```
 
 。通过浏览器访问 localhost:9001 可以看到界面
-![](/images/20170308/webui.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20170308/webui.png)
 
 
 ## Reference

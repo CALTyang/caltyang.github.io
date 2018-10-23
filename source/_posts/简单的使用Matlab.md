@@ -33,7 +33,7 @@ alias matlab="matlab -nodesktop -nosplash"
 ```
 
 。效果图：
-![](/images/20150810/effect2.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20150810/effect2.png)
 
 ## 0x03 总结
 ***

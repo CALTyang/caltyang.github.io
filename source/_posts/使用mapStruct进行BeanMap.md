@@ -5,7 +5,7 @@ tags: Java
 ---
 
 。MapStruct是一个BeanMap的方案，可以让我们很方便的进行Bean之间转换
-![](/images/20161223/mapstruct.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20161223/mapstruct.png)
 
 ## What and Why
 ***

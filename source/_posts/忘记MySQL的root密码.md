@@ -31,7 +31,7 @@ mysql> flush privileges;
 
 ## 5.7 以后
 ***
-![](/images/20141209/mysql5.7.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20141209/mysql5.7.png)
 
 。由于官方移除了mysql数据库下user表的password字段，当然只是改了一个字段名：
 。所以上面的 update 语句无法生效，换成下面的语句

@@ -88,7 +88,7 @@ mvn test -Dtest=MyClassTest#*test*
 
 ## 0x05 mvn compile时报错
 ***
-![](/images/20160901/mvn_compile_err.png)
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160901/mvn_compile_err.png)
 可能是因为compiler的版本和实际使用的版本不同造成，在pom.xml中手工指定版本即可
 ```
 <plugin>

@@ -30,7 +30,7 @@ tags: OSX
 ## 0x02 应用是如何安装的
 ***
 。我们知道 brew 安装的软件默认都在 /usr/local/Cellar 文件夹下
-。而其实 homebrew 的安装目录也是在 /usr/local 下的，homebrew 会在该目录下初试 git 环境，然后在该目录下维护和track包之类，查看该目录下的 git 配置可发现
+。而其实 homebrew 的安装目录也是在 /usr/local 下的，homebrew 会在该目录下初始 git 环境，然后在该目录下维护和track包之类，查看该目录下的 git 配置可发现
 
 。默认安装的 Formula 在 /usr/local/Library/Formula 文件夹下
 。我们已 cloc（一个代码统计的工具）为例，它的formula如下：
@@ -62,7 +62,7 @@ class Cloc < Formula
 end
 ```
 。细心的同学可能就发现了，这里的一些信息其实和 brew desc 和 brew info 时是一致的，比如：
-
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160429/brew_info_cloc.png)
 。所以，当我们安装 cloc （通过 brew install cloc）时，首先，homebrew 会使用 curl 来获取文件，并放在缓存目录中
 。然后出于安全等因素考虑，会计算 checksum，并和sha256那个作比对
 。如果文件下载正确的话，接下啦 homebrew 会解压归档到一个临时文件夹，然后执行 install 命令，比如这里就是下面的命令
@@ -107,9 +107,9 @@ make -C Unix prefix=/usr/local/Cellar/xxx install
 
 ## cakebrew
 ***
-。这是一个图形化的 homebrew 工具
+。这是一个图形化的 homebrew 工具，[官网](https://www.cakebrew.com/)
 。可以用来可视化的安装，卸载，管理 package 等
-
+![](http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160429/cakebrew.png)
 
 ## Reference
 ***
