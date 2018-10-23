@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="SL&#39;s Blog">
 <meta property="og:description" content="SpringBoot中开启热部署使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作。好像是在 SpringBoot 1.3+ 引入">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://caltyang.cn/images/20170305/banner.png">
-<meta property="og:updated_time" content="2017-12-23T12:00:36.841Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20170305/banner.png">
+<meta property="og:updated_time" content="2018-10-23T06:18:47.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot中开启热部署">
 <meta name="twitter:description" content="SpringBoot中开启热部署使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作。好像是在 SpringBoot 1.3+ 引入">
-<meta name="twitter:image" content="http://caltyang.cn/images/20170305/banner.png">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20170305/banner.png">
   
     <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -93,7 +93,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>SpringBoot中开启热部署<br>使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作<br>。好像是在 SpringBoot 1.3+ 引入<br><img src="/images/20170305/banner.png" alt=""><br><a id="more"></a></p>
+        <p>SpringBoot中开启热部署<br>使用 spring-boot-devtool 可以用来实现热部署，即代码（比如接口）有变动，不需要重启应用，在保存代码时即会自动进行部署操作<br>。好像是在 SpringBoot 1.3+ 引入<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20170305/banner.png" alt=""><br><a id="more"></a></p>
 <p>使用步骤<br>1）引入依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;</span><br><span class="line">    &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
 <p>。注意一定要配置 optional 为 true，否则不生效<br>。同时需要开启 maven 的插件配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;fork&gt;true&lt;/fork&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></p>
 <p>2）开启 IDEA 中自动编译的特性： 设置 → Build,Execution,Deployment → Compiler</p>
@@ -104,7 +104,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2017/03/05/SpringBoot中开启热部署/" data-id="cjnl9yeev0009q4jbs14gcvbr" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2017/03/05/SpringBoot中开启热部署/" data-id="cjnlb5wg400080gjbd6e5xfkp" class="article-share-link">Share</a>
       
 
       

@@ -14,16 +14,16 @@
 <meta property="og:site_name" content="SL&#39;s Blog">
 <meta property="og:description" content="场景如下，家中有一台自己攒的Linux电脑，有时候需要学习一些东西，都在那台电脑上进行，比如研究k8s，可以在上面搭建环境。但是问题是，在出了家里局域网，想要外网访问相对麻烦，且虽然有一些成熟的内网解决方案，但是因为不像直接暴露机器到DMZ，每个内网渗透一般只能绑定一个端口，而我们很多时候需要用的端口是不固定，且多个。这时候为每个端口买个渗透明显就不划算了。所以本文记录现在自己使用的一种解决方案">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://caltyang.cn/images/20181023/natapp_services.png">
-<meta property="og:image" content="http://caltyang.cn/images/20181023/natapp_webconsole.png">
-<meta property="og:image" content="http://caltyang.cn/images/20181023/ssh_tunnel_manager.png">
-<meta property="og:image" content="http://caltyang.cn/images/20181023/ssh_tunnel_config.png">
-<meta property="og:image" content="http://caltyang.cn/images/20181023/tomcat_webui.png">
-<meta property="og:updated_time" content="2018-10-23T05:12:32.154Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/natapp_services.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/natapp_webconsole.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/ssh_tunnel_manager.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/ssh_tunnel_config.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/tomcat_webui.png">
+<meta property="og:updated_time" content="2018-10-23T06:17:47.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用SSH隧道和内网渗透访问家中服务器">
 <meta name="twitter:description" content="场景如下，家中有一台自己攒的Linux电脑，有时候需要学习一些东西，都在那台电脑上进行，比如研究k8s，可以在上面搭建环境。但是问题是，在出了家里局域网，想要外网访问相对麻烦，且虽然有一些成熟的内网解决方案，但是因为不像直接暴露机器到DMZ，每个内网渗透一般只能绑定一个端口，而我们很多时候需要用的端口是不固定，且多个。这时候为每个端口买个渗透明显就不划算了。所以本文记录现在自己使用的一种解决方案">
-<meta name="twitter:image" content="http://caltyang.cn/images/20181023/natapp_services.png">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/natapp_services.png">
   
     <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -103,18 +103,18 @@
 </blockquote>
 <a id="more"></a>
 <h2 id="0x01-内网渗透"><a href="#0x01-内网渗透" class="headerlink" title="0x01 内网渗透"></a>0x01 内网渗透</h2><hr>
-<p>内网渗透推荐这样一款工具：Natapp，<a href="https://natapp.cn/" target="_blank" rel="noopener">官网</a>，其功能类似ngrok，不过给你提供了公网的机器，你要做的就是在其控制界面配置一下本地服务端口，选协议，然后在本地机器上启动对应服务即可。<br>针对不同场景、流量需求，natapp提供了多种套餐，如下。因为自己只是访问家中电脑方面控制，所以买了个最低配即可：<br><img src="/images/20181023/natapp_services.png" alt=""><br>。使用方式官网也有教程: <a href="https://natapp.cn/article/nohup" target="_blank" rel="noopener">连接</a>，使用命令启动即可，同时传递参数authtoken，其在购买服务之后可以在管理界面查询到，如下：<br><img src="/images/20181023/natapp_webconsole.png" alt=""><br>注意其协议有两种，TCP和HTTP，因为这里是配合SSH隧道使用，所以选择TCP，端口则是你SSH服务监听的端口(默认22)</p>
+<p>内网渗透推荐这样一款工具：Natapp，<a href="https://natapp.cn/" target="_blank" rel="noopener">官网</a>，其功能类似ngrok，不过给你提供了公网的机器，你要做的就是在其控制界面配置一下本地服务端口，选协议，然后在本地机器上启动对应服务即可。<br>针对不同场景、流量需求，natapp提供了多种套餐，如下。因为自己只是访问家中电脑方面控制，所以买了个最低配即可：<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/natapp_services.png" alt=""><br>。使用方式官网也有教程: <a href="https://natapp.cn/article/nohup" target="_blank" rel="noopener">连接</a>，使用命令启动即可，同时传递参数authtoken，其在购买服务之后可以在管理界面查询到，如下：<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/natapp_webconsole.png" alt=""><br>注意其协议有两种，TCP和HTTP，因为这里是配合SSH隧道使用，所以选择TCP，端口则是你SSH服务监听的端口(默认22)</p>
 <h2 id="0x02-通过supervisor配置服务"><a href="#0x02-通过supervisor配置服务" class="headerlink" title="0x02 通过supervisor配置服务"></a>0x02 通过supervisor配置服务</h2><hr>
 <p>既然家里电脑是当做服务器使用，当然希望的是自己想使用的时候就能提供服务，虽然一直开机可以满足，但是又明显没有必要（费电）。所以后面可以使用比如小米的智能插座，配合BIOS通电自动开机来实现远程的开机，又或者使用WOL之类方案来进行网络唤醒。这就得另说了。但是首先我们需要解决的问题是，如何让Natapp开机启动。<br>虽然你可以通过编写开机启动脚本来实现，但是之前博客介绍过Supervisor，所以我们可以直接使用Supervisor来进行服务的自动启动，启停控制等。具体Supervisor参考之前博客。这里只记录natapp的配置：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[program:natapp]</span></span><br><span class="line"><span class="attr">command</span>=/opt/natapp/natapp -authtoken=&lt;your_authtoken&gt; -log=stdout</span><br><span class="line"><span class="attr">autostart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">autorestart</span>=<span class="literal">true</span></span><br><span class="line"><span class="attr">stdout_logfile</span>=/tmp/natapp.log</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意这里需要换上你自己的authtoken，包括natapp命令，也需要替换为你实际的程序路径</p>
 </blockquote>
 <h2 id="0x03-SSH隧道"><a href="#0x03-SSH隧道" class="headerlink" title="0x03 SSH隧道"></a>0x03 SSH隧道</h2><hr>
-<p>SSH隧道是什么这里就不记录了。这里我们主要通过SSH隧道来解决多端口的问题。简单理解就是虽然我们是访问不同端口，但是我们可以配置一个本地端口和远程机器的端口映射，然后通过SSH隧道来建立连接。<br>命令行的方式并不方便，我这里使用的是OSX系统，所以推荐一个免费的SSH隧道管理的GUI工具<a href="https://www.tynsoe.org/v2/stm/" target="_blank" rel="noopener">SSH Tunnel Manager</a><br><img src="/images/20181023/ssh_tunnel_manager.png" alt=""><br>其界面大致如下，我们配置好远程机器，及端口映射即可<br><img src="/images/20181023/ssh_tunnel_config.png" alt=""></p>
+<p>SSH隧道是什么这里就不记录了。这里我们主要通过SSH隧道来解决多端口的问题。简单理解就是虽然我们是访问不同端口，但是我们可以配置一个本地端口和远程机器的端口映射，然后通过SSH隧道来建立连接。<br>命令行的方式并不方便，我这里使用的是OSX系统，所以推荐一个免费的SSH隧道管理的GUI工具<a href="https://www.tynsoe.org/v2/stm/" target="_blank" rel="noopener">SSH Tunnel Manager</a><br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/ssh_tunnel_manager.png" alt=""><br>其界面大致如下，我们配置好远程机器，及端口映射即可<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/ssh_tunnel_config.png" alt=""></p>
 <blockquote>
 <p>注：按照你自己的连接信息配置</p>
 </blockquote>
-<p>以Tomcat为例，我们先通过ssh透过natapp访问远程机器，启动Tomcat，然后因为上面透过SSH隧道已经建立了映射，所以我们直接访问本地端口，就能看到远程机器的Tomcat服务了<br><img src="/images/20181023/tomcat_webui.png" alt=""></p>
+<p>以Tomcat为例，我们先通过ssh透过natapp访问远程机器，启动Tomcat，然后因为上面透过SSH隧道已经建立了映射，所以我们直接访问本地端口，就能看到远程机器的Tomcat服务了<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20181023/tomcat_webui.png" alt=""></p>
 <h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><hr>
 <p>这个方案是现在自己用的方案，虽然还是需要花一定的费用来进行内网渗透，但是其实你也可以使用ngrok来实现类似的效果，当然如果你有外网服务器的话。但是如果专门为了内网渗透买一个有公网ip的服务器，也不一定很划算。另外，如果你家中网络是电信或者联通的话（有公网ip），可以考虑直接用路由器的端口转发来进行SSH服务的暴露，只不过因为我家中网络因素，无法走这条路。综上，SSH隧道还是很方便的一个东西，你可以随时配置一个隧道来访问服务器上对应的服务，而不需要再额外考虑成本、部署渗透等因素。</p>
 
@@ -122,7 +122,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2018/10/23/使用SSH隧道和内网渗透访问家中服务器/" data-id="cjnl9yeeu0008q4jbe6fxl6vk" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2018/10/23/使用SSH隧道和内网渗透访问家中服务器/" data-id="cjnlb5wge000h0gjb2m7rva43" class="article-share-link">Share</a>
       
 
       

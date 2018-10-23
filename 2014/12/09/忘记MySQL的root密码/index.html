@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="SL&#39;s Blog">
 <meta property="og:description" content="。首先MySQL密码忘了，只能重置，不能找回">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://caltyang.cn/images/20141209/mysql5.7.png">
-<meta property="og:updated_time" content="2017-12-23T12:00:36.844Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20141209/mysql5.7.png">
+<meta property="og:updated_time" content="2018-10-23T06:20:49.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="忘记MySQL的root密码">
 <meta name="twitter:description" content="。首先MySQL密码忘了，只能重置，不能找回">
-<meta name="twitter:image" content="http://caltyang.cn/images/20141209/mysql5.7.png">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20141209/mysql5.7.png">
   
     <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -101,7 +101,7 @@
 <p>4）刷新权限表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure></p>
 <p>5）重新用root登陆</p>
 <h2 id="5-7-以后"><a href="#5-7-以后" class="headerlink" title="5.7 以后"></a>5.7 以后</h2><hr>
-<p><img src="/images/20141209/mysql5.7.png" alt=""></p>
+<p><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20141209/mysql5.7.png" alt=""></p>
 <p>。由于官方移除了mysql数据库下user表的password字段，当然只是改了一个字段名：<br>。所以上面的 update 语句无法生效，换成下面的语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set authentication_string = password(‘123456’) where user = ‘root’;</span><br></pre></td></tr></table></figure></p>
 <p>。记得 flush privileges</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><hr>
@@ -111,7 +111,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2014/12/09/忘记MySQL的root密码/" data-id="cjnl9yefc000wq4jb79maflad" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2014/12/09/忘记MySQL的root密码/" data-id="cjnlb5wgn000t0gjbfdbe18hh" class="article-share-link">Share</a>
       
 
       

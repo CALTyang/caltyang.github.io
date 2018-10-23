@@ -15,8 +15,8 @@
 <meta property="og:description" content="作为一名工科生，平时专业上用的最多的可能就是Matlab了，但是其巨大的资源消耗，以及笨重的GUI界面总是让人很不爽，很久以前看到了直接在命令行中进行matlab操作的方法，实践了一下感觉不错，做个记录。 主要分为2个平台：Linux、OS X …. (Windows自动屏蔽）： 0x01 Linux： Linux 相对简单，安装过Matlab后，直接在bashrc中配置一个alias即可123e">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://caltyang.cn/images/20150810/effect1.png">
-<meta property="og:image" content="http://caltyang.cn/images/20150810/effect2.png">
-<meta property="og:updated_time" content="2017-12-23T12:00:36.845Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20150810/effect2.png">
+<meta property="og:updated_time" content="2018-10-23T06:21:34.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单的使用Matlab">
 <meta name="twitter:description" content="作为一名工科生，平时专业上用的最多的可能就是Matlab了，但是其巨大的资源消耗，以及笨重的GUI界面总是让人很不爽，很久以前看到了直接在命令行中进行matlab操作的方法，实践了一下感觉不错，做个记录。 主要分为2个平台：Linux、OS X …. (Windows自动屏蔽）： 0x01 Linux： Linux 相对简单，安装过Matlab后，直接在bashrc中配置一个alias即可123e">
@@ -102,7 +102,7 @@
 <p>如图，我使用的是zsh，直接在~/.zshrc中添加相应配置，需要附带两个参数 -nosplash -nodesktop ，是用来跳过图形界面和开启的启动界面的，当然 matlab 需要已经加入 $PATH 中。下面是更详细的启动参数：<br>。效果图：<br><img src="/images/20150810/effect1.png" alt=""></p>
 <h2 id="0x02-OS-X："><a href="#0x02-OS-X：" class="headerlink" title="0x02 OS X："></a>0x02 OS X：</h2><hr>
 <p>类似Linux（毕竟人家也是 Unix-like 么），zshrc 配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export MATLAB_HOME=&quot;/Applications/MATLAB_R2014b.app&quot;</span><br><span class="line">export PATH=$PATH:$MATLAB_HOME/bin</span><br><span class="line">alias matlab=&quot;matlab -nodesktop -nosplash&quot;</span><br></pre></td></tr></table></figure></p>
-<p>。效果图：<br><img src="/images/20150810/effect2.png" alt=""></p>
+<p>。效果图：<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20150810/effect2.png" alt=""></p>
 <h2 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h2><hr>
 <p>经测试，不用原生的界面在性能上感觉好了不少，相对电量的消耗也有改善，而且直接操作终端更带感，当然，操作本身没有什么技术含量，很多跨平台的工具应该都能用类似的方案解决，不过是参数怎么给而已。</p>
 
@@ -110,7 +110,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2015/08/15/简单的使用Matlab/" data-id="cjnl9yefd000yq4jbewnjpo3r" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2015/08/15/简单的使用Matlab/" data-id="cjnlb5wgu00120gjbcaofknbw" class="article-share-link">Share</a>
       
 
       

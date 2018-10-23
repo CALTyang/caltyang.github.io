@@ -14,18 +14,18 @@
 <meta property="og:site_name" content="SL&#39;s Blog">
 <meta property="og:description" content="。以5.12.0为例。之前版本略有不同，主要是 ACIVEMQ_SUNJMX_xxx 的地方不同，老版本可能直接放在了 activemq 的 shell 脚本中，5.12 移至和脚本同级目录的 env 下">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://caltyang.cn/images/20160216/1.png">
-<meta property="og:image" content="http://caltyang.cn/images/20160216/2.png">
-<meta property="og:image" content="http://caltyang.cn/images/20160216/3.png">
-<meta property="og:image" content="http://caltyang.cn/images/20160216/4.png">
-<meta property="og:image" content="http://caltyang.cn/images/20160216/jmxaccess.png">
-<meta property="og:image" content="http://caltyang.cn/images/20160216/jmxpassword.png">
-<meta property="og:image" content="http://caltyang.cn/images/20160216/7.png">
-<meta property="og:updated_time" content="2017-12-23T12:00:36.844Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/1.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/2.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/3.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/4.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/jmxaccess.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/jmxpassword.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/7.png">
+<meta property="og:updated_time" content="2018-10-23T06:20:43.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开启ActiveMQ的JMX">
 <meta name="twitter:description" content="。以5.12.0为例。之前版本略有不同，主要是 ACIVEMQ_SUNJMX_xxx 的地方不同，老版本可能直接放在了 activemq 的 shell 脚本中，5.12 移至和脚本同级目录的 env 下">
-<meta name="twitter:image" content="http://caltyang.cn/images/20160216/1.png">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/1.png">
   
     <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -101,25 +101,25 @@
       
         <p>。以5.12.0为例<br>。之前版本略有不同，主要是 ACIVEMQ_SUNJMX_xxx 的地方不同，老版本可能直接放在了 activemq 的 shell 脚本中，5.12 移至和脚本同级目录的 env 下<br><a id="more"></a></p>
 <h2 id="0x01-步骤"><a href="#0x01-步骤" class="headerlink" title="0x01 步骤"></a>0x01 步骤</h2><hr>
-<p>1）修改 conf/activemq.xml 中配置<br>。修改 broker 标签，添加属性 userJmx<br><img src="/images/20160216/1.png" alt=""><br>2）修改 bin/env 配置<br><img src="/images/20160216/2.png" alt=""></p>
+<p>1）修改 conf/activemq.xml 中配置<br>。修改 broker 标签，添加属性 userJmx<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/1.png" alt=""><br>2）修改 bin/env 配置<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/2.png" alt=""></p>
 <p>。取消59行左右配置，并增加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACTIVEMQ_SUNJMX_START=&quot;$ACTIVEMQ_SUNJMX_START -Djava.rmi.server.hostname=192.168.1.61&quot;</span><br></pre></td></tr></table></figure></p>
-<p>。具体 IP 以实际为主<br>最后效果：<br><img src="/images/20160216/3.png" alt=""></p>
-<p>3）修改 conf/ 下面 jmx.access 的权限，为 600，直接 chmod 600 jmx.access 即可<br><img src="/images/20160216/4.png" alt=""><br>。不然会报错</p>
+<p>。具体 IP 以实际为主<br>最后效果：<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/3.png" alt=""></p>
+<p>3）修改 conf/ 下面 jmx.access 的权限，为 600，直接 chmod 600 jmx.access 即可<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/4.png" alt=""><br>。不然会报错</p>
 <p>4）增加用户：<br>。这里涉及2个文件：jmx.access、jms.password</p>
 <blockquote>
 <p>access 文件用来配置角色（权限），比如读写是 readwrite，只读是 readonly<br>password 是实际用户名</p>
 </blockquote>
-<p>。这里增加一个读消息的账户，结果如下：<br><img src="/images/20160216/jmxaccess.png" alt=""><br><img src="/images/20160216/jmxpassword.png" alt=""></p>
+<p>。这里增加一个读消息的账户，结果如下：<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/jmxaccess.png" alt=""><br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/jmxpassword.png" alt=""></p>
 <h2 id="0x02-测试："><a href="#0x02-测试：" class="headerlink" title="0x02 测试："></a>0x02 测试：</h2><hr>
 <p>1）jmx 的连接地址为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service:jmx:rmi:///jndi/rmi://192.168.1.16:11099/jmxrmi</span><br></pre></td></tr></table></figure></p>
 <p>。ip 以实际为准</p>
-<p>2）用户名和密码按照上述为 caltyang helloworld，使用 jconsole 测试连接<br><img src="/images/20160216/7.png" alt=""></p>
+<p>2）用户名和密码按照上述为 caltyang helloworld，使用 jconsole 测试连接<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160216/7.png" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2017/02/16/开启ActiveMQ的JMX/" data-id="cjnl9yefb000tq4jbzr1uzztj" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2017/02/16/开启ActiveMQ的JMX/" data-id="cjnlb5wgs00100gjbq4f1pjp4" class="article-share-link">Share</a>
       
 
       

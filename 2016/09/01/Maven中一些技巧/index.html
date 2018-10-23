@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="SL&#39;s Blog">
 <meta property="og:description" content="。本文记录使用Maven过程中遇到的一些Tip">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://caltyang.cn/images/20160901/mvn_compile_err.png">
-<meta property="og:updated_time" content="2017-12-23T12:00:36.840Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160901/mvn_compile_err.png">
+<meta property="og:updated_time" content="2018-10-23T06:18:37.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven中一些技巧">
 <meta name="twitter:description" content="。本文记录使用Maven过程中遇到的一些Tip">
-<meta name="twitter:image" content="http://caltyang.cn/images/20160901/mvn_compile_err.png">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160901/mvn_compile_err.png">
   
     <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -109,7 +109,7 @@
 <p>同时支持通配符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn test -Dtest=MyClassTest#*test*</span><br></pre></td></tr></table></figure></p>
 <p>。参考：<a href="https://www.oschina.net/code/snippet_157514_37277" target="_blank" rel="noopener">https://www.oschina.net/code/snippet_157514_37277</a></p>
 <h2 id="0x05-mvn-compile时报错"><a href="#0x05-mvn-compile时报错" class="headerlink" title="0x05 mvn compile时报错"></a>0x05 mvn compile时报错</h2><hr>
-<p><img src="/images/20160901/mvn_compile_err.png" alt=""><br>可能是因为compiler的版本和实际使用的版本不同造成，在pom.xml中手工指定版本即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160901/mvn_compile_err.png" alt=""><br>可能是因为compiler的版本和实际使用的版本不同造成，在pom.xml中手工指定版本即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure></p>
 <p>当然，更好是配置一个property，通过占位符配置</p>
 <h2 id="0x06-关闭-package-等-phase-时自动test"><a href="#0x06-关闭-package-等-phase-时自动test" class="headerlink" title="0x06 关闭 package 等 phase 时自动test"></a>0x06 关闭 package 等 phase 时自动test</h2><hr>
 <p>。在pom.xml中增加配置变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;maven.test.skip&gt;true&lt;/maven.test.skip&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure></p>
@@ -120,7 +120,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2016/09/01/Maven中一些技巧/" data-id="cjnl9yeep0003q4jbaajp4qxw" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2016/09/01/Maven中一些技巧/" data-id="cjnlb5wg200050gjb9gxo4g7s" class="article-share-link">Share</a>
       
 
       

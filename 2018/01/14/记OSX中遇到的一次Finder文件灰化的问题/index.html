@@ -14,13 +14,13 @@
 <meta property="og:site_name" content="SL&#39;s Blog">
 <meta property="og:description" content="。这几天沉迷于看《晓说》，加上家里的NAS（群晖）也到位了，就尝试了一下把晓说的视频扒下来，留作收藏，结果在整理文件的时候遇到了一个挺有趣的事情，所以记录一下：">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://caltyang.cn/images/20180114/nasfilelist.png">
-<meta property="og:image" content="http://caltyang.cn/images/20180114/lsresult.png">
-<meta property="og:updated_time" content="2018-09-13T06:20:44.355Z">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20180114/nasfilelist.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20180114/lsresult.png">
+<meta property="og:updated_time" content="2018-10-23T06:21:44.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记OSX中遇到的一次Finder文件灰化的问题">
 <meta name="twitter:description" content="。这几天沉迷于看《晓说》，加上家里的NAS（群晖）也到位了，就尝试了一下把晓说的视频扒下来，留作收藏，结果在整理文件的时候遇到了一个挺有趣的事情，所以记录一下：">
-<meta name="twitter:image" content="http://caltyang.cn/images/20180114/nasfilelist.png">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20180114/nasfilelist.png">
   
     <link rel="alternative" href="/atom.xml" title="SL&#39;s Blog" type="application/atom+xml">
   
@@ -98,12 +98,12 @@
 <blockquote>
 <p>如下图，Finder中某些文件莫名的灰化了，且也不能修改文件名</p>
 </blockquote>
-<p><img src="/images/20180114/nasfilelist.png" alt=""><br>原因：</p>
+<p><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20180114/nasfilelist.png" alt=""><br>原因：</p>
 <blockquote>
 <p>不详</p>
 </blockquote>
 <p>。解决方法：<br>1）使用命令查看文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -@eln &lt;file_path&gt;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/20180114/lsresult.png" alt=""></p>
+<p><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20180114/lsresult.png" alt=""></p>
 <p>2）复制显示结果中的com.apple.FinderInfo</p>
 <p>3）使用命令（也可以配合使用通配符来批量操作）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xattr -d -r com.apple.FinderInfo &lt;file_path&gt;</span><br></pre></td></tr></table></figure></p>
 <p>。Done</p>
@@ -114,7 +114,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://caltyang.cn/2018/01/14/记OSX中遇到的一次Finder文件灰化的问题/" data-id="cjnl9yefg0013q4jbq37a6e25" class="article-share-link">Share</a>
+        <a data-url="http://caltyang.cn/2018/01/14/记OSX中遇到的一次Finder文件灰化的问题/" data-id="cjnlb5wgq000x0gjbpgl6ri0f" class="article-share-link">Share</a>
       
 
       
