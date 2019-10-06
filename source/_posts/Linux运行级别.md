@@ -1,7 +1,7 @@
 ---
 title: Linux运行级别
 date: 2014-09-05 13:23:12
-tags: linux
+tags: Linux
 ---
 
 Linux运行级别

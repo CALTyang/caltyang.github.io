@@ -1,7 +1,7 @@
 ---
 title: 使用supervisor管理进程
 date: 2017-03-08 13:31:22
-tags: linux
+tags: Linux
 ---
 
 ## 简介
