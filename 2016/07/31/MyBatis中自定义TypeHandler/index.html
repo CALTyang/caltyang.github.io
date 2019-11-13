@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>MyBatis中自定义TypeHandler | SL&#39;s Blog</title>
+    
+    
+        <meta name="keywords" content="Java" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="自定义TypeHandler 实现 TypeHandler 接口  或者继承 BaseTypeHandler 类  在配置文件中注册对应的 typeHandler   在INSERT语句中使用TypeHandler，额外增加配置即可，例如1234&amp;lt;insert id=&quot;insertItem&quot; parameterType=&quot;com.moji.tob.cproj.pingan.meteo.mod">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis中自定义TypeHandler">
+<meta property="og:url" content="http://caltyang.cn/2016/07/31/MyBatis中自定义TypeHandler/index.html">
+<meta property="og:site_name" content="SL&#39;s Blog">
+<meta property="og:description" content="自定义TypeHandler 实现 TypeHandler 接口  或者继承 BaseTypeHandler 类  在配置文件中注册对应的 typeHandler   在INSERT语句中使用TypeHandler，额外增加配置即可，例如1234&amp;lt;insert id=&quot;insertItem&quot; parameterType=&quot;com.moji.tob.cproj.pingan.meteo.mod">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160731/mybatis-type-handler-ldt.png">
+<meta property="og:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160731/mybatis-type-handler-config.png">
+<meta property="og:updated_time" content="2019-11-13T13:25:44.266Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyBatis中自定义TypeHandler">
+<meta name="twitter:description" content="自定义TypeHandler 实现 TypeHandler 接口  或者继承 BaseTypeHandler 类  在配置文件中注册对应的 typeHandler   在INSERT语句中使用TypeHandler，额外增加配置即可，例如1234&amp;lt;insert id=&quot;insertItem&quot; parameterType=&quot;com.moji.tob.cproj.pingan.meteo.mod">
+<meta name="twitter:image" content="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160731/mybatis-type-handler-ldt.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">SL&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <!-- <div id="search-form-wrap">
+
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="http://caltyang.cn"></form>
+
+</div> -->
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <!-- <td>
+                    
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://caltyang.cn"></form>
+
+                </td> -->
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作相关/">工作相关</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计/">设计</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tag cloud</span></h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/OSX/" style="font-size: 12.5px;">OSX</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/工作相关/" style="font-size: 12.5px;">工作相关</a> <a href="/tags/工具/" style="font-size: 12.5px;">工具</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-MyBatis中自定义TypeHandler" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Java/">Java</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/31/MyBatis中自定义TypeHandler/">
+            <time datetime="2016-07-31T14:21:34.000Z" itemprop="datePublished">2016-07-31</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                         -->
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            MyBatis中自定义TypeHandler
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="自定义TypeHandler"><a href="#自定义TypeHandler" class="headerlink" title="自定义TypeHandler"></a>自定义TypeHandler</h2><ol>
+<li>实现 TypeHandler 接口 </li>
+<li>或者继承 BaseTypeHandler<localdate> 类 </localdate></li>
+<li>在配置文件中注册对应的 typeHandler </li>
+</ol>
+<p>在INSERT语句中使用TypeHandler，额外增加配置即可，例如<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=<span class="string">"insertItem"</span> parameterType=<span class="string">"com.moji.tob.cproj.pingan.meteo.model.MetaDataProcessItem"</span>&gt;</span><br><span class="line"><span class="function">INSERT INTO <span class="title">tb_pingan_meta_process</span> <span class="params">(data_type)</span> <span class="title">VALUES</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    #&#123;dataType, typeHandler=com.moji.tob.cproj.pingan.meteo.mapper.ProcessDataTypeHandler&#125;)</span></span></span><br><span class="line"><span class="function">&lt;/insert&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="JDK8的LocalDateTime等兼容"><a href="#JDK8的LocalDateTime等兼容" class="headerlink" title="JDK8的LocalDateTime等兼容"></a>JDK8的LocalDateTime等兼容</h2><p>默认不兼容LocalDateTime（早先版本，现在的版本不确定），可以直接使用别人实现好的type-handler <a href="https://github.com/mybatis/typehandlers-jsr310" target="_blank" rel="noopener">参考</a><br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160731/mybatis-type-handler-ldt.png" alt=""></p>
+<p>相关：<a href="http://stackoverflow.com/questions/25113579/java-8-localdate-mapping-with-mybatis" target="_blank" rel="noopener">OSF问题</a></p>
+<h2 id="自定义TypeHandler支持BitSet"><a href="#自定义TypeHandler支持BitSet" class="headerlink" title="自定义TypeHandler支持BitSet"></a>自定义TypeHandler支持BitSet</h2><p>SpringBoot项目，源码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@MappedTypes</span>(&#123;BitSet.class&#125;)</span><br><span class="line"><span class="meta">@MappedJdbcTypes</span>(&#123;JdbcType.BLOB&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BitSetTypeHandler</span> <span class="keyword">implements</span> <span class="title">TypeHandler</span>&lt;<span class="title">BitSet</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParameter</span><span class="params">(PreparedStatement ps, <span class="keyword">int</span> i, BitSet parameter, JdbcType jdbcType)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        ps.setString(i, parameter.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BitSet <span class="title">getResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        String content = rs.getString(columnName);</span><br><span class="line">        <span class="keyword">return</span> doConvertBitSet(content);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BitSet <span class="title">getResult</span><span class="params">(ResultSet rs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        String content = rs.getString(columnIndex);</span><br><span class="line">        <span class="keyword">return</span> doConvertBitSet(content);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BitSet <span class="title">getResult</span><span class="params">(CallableStatement cs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        String content = cs.getString(columnIndex);</span><br><span class="line">        <span class="keyword">return</span> doConvertBitSet(content);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> BitSet <span class="title">doConvertBitSet</span><span class="params">(String content)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isNotEmpty(content)) &#123;</span><br><span class="line">            content = content.replaceAll(<span class="string">"\\&#123;"</span>, <span class="string">""</span>).replaceAll(<span class="string">"&#125;"</span>, <span class="string">""</span>);</span><br><span class="line">            Set&lt;Integer&gt; apiIds = Splitter.on(<span class="string">","</span>)</span><br><span class="line">                    .omitEmptyStrings()</span><br><span class="line">                    .trimResults()</span><br><span class="line">                    .splitToList(content)</span><br><span class="line">                    .stream()</span><br><span class="line">                    .filter(StringUtils::isNotEmpty)</span><br><span class="line">                    .map(Integer::parseInt)</span><br><span class="line">                    .collect(Collectors.toSet());</span><br><span class="line">            <span class="keyword">if</span> (CollectionUtils.isNotEmpty(apiIds)) &#123;</span><br><span class="line">                BitSet bitSet = <span class="keyword">new</span> BitSet();</span><br><span class="line">                <span class="keyword">for</span> (Integer apiId : apiIds) &#123;</span><br><span class="line">                    bitSet.set(apiId);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> bitSet;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MyBatis中添加配置<br><img src="http://slblogimg.oss-cn-beijing.aliyuncs.com/images/20160731/mybatis-type-handler-config.png" alt=""></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://hussion.iteye.com/blog/1530696" target="_blank" rel="noopener">mybatis typeHandler自定义类型转换器</a></li>
+<li><a href="http://my.oschina.net/amoshuang/blog/134199" target="_blank" rel="noopener">MyBatis自定义数据映射TypeHandler</a></li>
+<li><a href="http://www.importnew.com/25617.html" target="_blank" rel="noopener">Mybatis_TypeHandler 的简单应用及源码分析</a></li>
+<li><a href="https://stackoverflow.com/questions/26141913/how-to-use-typehandler-for-insert-statements-in-mybatis" target="_blank" rel="noopener">How to use TypeHandler for INSERT statements in MyBatis</a></li>
+</ul>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2016/09/01/Maven中一些技巧/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Maven中一些技巧
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/04/29/Homebrew是如何工作的/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Homebrew是如何工作的</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Shawn Liu &copy; 2019 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            <!-- 
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+             -->
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

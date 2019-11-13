@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Geo常用数据格式 | SL&#39;s Blog</title>
+    
+    
+        <meta name="keywords" content="工作相关" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="[TOC]    格式 类型     KML    GeoJson 矢量   Shapefile 矢量   CAD 矢量   WKT 矢量   TIFF 栅格   JPEG、GIF、BMP、PNG 栅格">
+<meta name="keywords" content="工作相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Geo常用数据格式">
+<meta property="og:url" content="http://caltyang.cn/2018/11/29/Geo常用数据格式/index.html">
+<meta property="og:site_name" content="SL&#39;s Blog">
+<meta property="og:description" content="[TOC]    格式 类型     KML    GeoJson 矢量   Shapefile 矢量   CAD 矢量   WKT 矢量   TIFF 栅格   JPEG、GIF、BMP、PNG 栅格">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-13T13:25:44.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Geo常用数据格式">
+<meta name="twitter:description" content="[TOC]    格式 类型     KML    GeoJson 矢量   Shapefile 矢量   CAD 矢量   WKT 矢量   TIFF 栅格   JPEG、GIF、BMP、PNG 栅格">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">SL&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <!-- <div id="search-form-wrap">
+
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="http://caltyang.cn"></form>
+
+</div> -->
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <!-- <td>
+                    
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://caltyang.cn"></form>
+
+                </td> -->
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSX/">OSX</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作相关/">工作相关</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计/">设计</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">June 2013</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tag cloud</span></h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Linux/" style="font-size: 17.5px;">Linux</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/OSX/" style="font-size: 12.5px;">OSX</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/工作相关/" style="font-size: 12.5px;">工作相关</a> <a href="/tags/工具/" style="font-size: 12.5px;">工具</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/架构/" style="font-size: 10px;">架构</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-Geo常用数据格式" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/工作相关/">工作相关</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/11/29/Geo常用数据格式/">
+            <time datetime="2018-11-29T14:47:16.000Z" itemprop="datePublished">2018-11-29</time>
+        </a>
+    </div>
+
+
+                        <!-- 
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                         -->
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Geo常用数据格式
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>[TOC]</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KML</td>
+<td></td>
+</tr>
+<tr>
+<td>GeoJson</td>
+<td>矢量</td>
+</tr>
+<tr>
+<td>Shapefile</td>
+<td>矢量</td>
+</tr>
+<tr>
+<td>CAD</td>
+<td>矢量</td>
+</tr>
+<tr>
+<td>WKT</td>
+<td>矢量</td>
+</tr>
+<tr>
+<td>TIFF</td>
+<td>栅格</td>
+</tr>
+<tr>
+<td>JPEG、GIF、BMP、PNG</td>
+<td>栅格</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p>主要类型分为2类</p>
+<ul>
+<li>矢量数据：通过语言来描述几何图形，故不会失帧</li>
+<li>栅格数据：通过格点来存储数据，可能失帧</li>
+</ul>
+<h2 id="Shapefile"><a href="#Shapefile" class="headerlink" title="Shapefile"></a>Shapefile</h2><p>全称 ESRI Shapefile，是一种基于文件方式存储GIS数据的被广泛使用的数据格式。<br>一个Shapefile文件至少由shp、dbf、shx三个文件组成</p>
+<ul>
+<li>.shp：包含图形数据</li>
+<li>.dbf：属性数据文件，实际为dbase的数据文件，内部为当前图层中每条数据的属性值</li>
+<li>.shx：索引文件<br>开源扩展后缀文件：</li>
+<li>.prj：坐标系描述文件</li>
+<li>.qix：QuadTree空间索引文件</li>
+<li>.fix：FeatureID索引</li>
+<li>.sld：StyleLayerDescriptor样式xml文件</li>
+</ul>
+<p>ESRI扩展后缀文件：</p>
+<ul>
+<li>.sbn：属性索引</li>
+<li>.sbx：空间索引</li>
+<li>.lyr：ArcMap-Only样式对象</li>
+<li>.avl：ArcView样式对象</li>
+<li>.shp.xml：fgdc元数据</li>
+</ul>
+<h2 id="GeoJSON"><a href="#GeoJSON" class="headerlink" title="GeoJSON"></a>GeoJSON</h2><p>基于JSON数据格式用于表示空间实体的标记语言</p>
+<h2 id="WKT、WKB"><a href="#WKT、WKB" class="headerlink" title="WKT、WKB"></a>WKT、WKB</h2><p>一种文本标记语言，用于表示矢量几何对象，二进制形式是WKB，由OGC制定，可以表示几何对象</p>
+<ul>
+<li>POINT</li>
+<li>LINESTRING</li>
+<li>PLOYGON</li>
+<li>MULTIPOINT</li>
+<li>MULTILINESTRING</li>
+<li>MULTIPOLYGON</li>
+<li>GEOMETRYCOLLECTION</li>
+<li>POINT ZM</li>
+<li>POINT M</li>
+<li>POINT EMPTY</li>
+<li>MULTIPOLYGON EMPTY</li>
+</ul>
+<h2 id="栅格数据（Raster）"><a href="#栅格数据（Raster）" class="headerlink" title="栅格数据（Raster）"></a>栅格数据（Raster）</h2><p>常见栅格数据格式如下</p>
+<ul>
+<li>GeoTIFF：Geographic Tagged Image File Format，GIS和卫星遥感应用的行业图像标准文件（.tif或者.tiff）</li>
+<li>ERDASImagine:ERDAS软件的专用数据格式（.img）</li>
+<li>ENVI：ENVI使用一个二进制文件（.dat或者.bin），一个文本头文件存储栅格数据（.hdr）</li>
+<li>HDF：Hierarchical Data Format，美国国家高级计算机应用中心研发，MODIS数据就采用该格式，当前版本HDF5</li>
+<li>NetCDF：Network Common Data Format，由美国大学打钱研究协会研发，广泛应用于大气领域（.nc）NetCDF4基于HDF5</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://blog.csdn.net/shixiaoguo90/article/details/33720167" target="_blank" rel="noopener">WKT格式</a></li>
+</ul>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2019/04/23/DropwizardMetrics学习/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Dropwizard Metrics学习
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/10/23/使用SSH隧道和内网渗透访问家中服务器/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">使用SSH隧道和内网渗透访问家中服务器</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Shawn Liu &copy; 2019 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            <!-- 
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+             -->
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
